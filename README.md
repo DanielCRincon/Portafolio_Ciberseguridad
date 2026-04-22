@@ -23,7 +23,7 @@ Este repositorio documenta la implementación, configuración y ejecución de pr
 
 ## 🔧 Optimización del Entorno
 
-Se realizó un saneamiento profundo del servidor para dedicar la totalidad de recursos (CPU/RAM/Disco) a tareas de ciberseguridad, eliminando servicios de inferencia de IA y agentes locales:
+Se realizó un saneamiento del servidor para dedicar la totalidad de recursos (CPU/RAM/Disco) a tareas de ciberseguridad, eliminando servicios de inferencia de IA y agentes locales:
 
 - **Eliminación de Hermes AI:** Remoción de contenedores y redes virtuales
 - **Desactivación de Ollama:** Detención de servicios y borrado de modelos (weights) para liberar espacio crítico en disco (5GB+)
