@@ -91,6 +91,29 @@ Para mejorar la precisión del manual y los resultados, debes ajustar el comando
 ffuf -u http://192.168.40.21:3000/FUZZ -w /usr/share/wordlists/dirb/common.txt -fs 75002
 ```
 
+### 4. Explotación: Bypass de Autenticación (SQL Injection)
+- **Vulnerabilidad:** Inyección SQL (SQLi)
+- **Vector de Ataque:** Formulario de Login (`/#/login`)
+- **Payload utilizado:** `' OR 1=1--`
+
+**Descripción del hallazgo:**
+La aplicación concatena directamente la entrada del usuario en la consulta SQL sin validación previa. Al introducir una tautología (`1=1`) seguida de un comentario (`--`), se anula la verificación de la contraseña y se fuerza al motor de búsqueda a devolver el primer usuario de la base de datos (usualmente el administrador).
+
+**Prueba manual:**
+- **Email:** `' OR 1=1--`
+- **Password:** (cualquier valor)
+
+**Impacto:** Acceso no autorizado con privilegios de administrador, compromiso total de la confidencialidad de la base de datos.
+
+### 5. Mitigación y Buenas Prácticas
+Para corregir la vulnerabilidad de SQLi detectada, se deben implementar las siguientes medidas en la capa de persistencia:
+
+- **Implementación de Prepared Statements:** Reemplazar la concatenación de strings por consultas parametrizadas para forzar la separación entre código y datos.
+
+- **Validación de Entradas:** Aplicar filtros de tipo de dato y longitud en el lado del servidor.
+
+- **Seguridad en Base de Datos:** Configurar el usuario de la aplicación con permisos restringidos (Data Reader/Writer únicamente) para limitar el radio de explosión en caso de compromiso.
+
 ---
 
 ## 📝 Resumen de Comandos (Cheat Sheet)
